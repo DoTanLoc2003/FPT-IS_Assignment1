@@ -1,15 +1,52 @@
-# Node
-node_modules/
-dist/
-.env
-
-# Java
-target/
-*.class
-*.jar
-*.war
-*.log
-
-# OS
+# -------------------------------
+# 🔹 Common
+# -------------------------------
+# System files
 .DS_Store
 Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
+*.out
+*.err
+
+# -------------------------------
+# 🔹 Frontend (Angular)
+# -------------------------------
+/Frontend/node_modules/
+/Frontend/dist/
+/Frontend/.angular/
+/Frontend/.cache/
+/Frontend/tmp/
+/Frontend/.env
+/Frontend/package-lock.json
+/Frontend/npm-debug.log
+/Frontend/yarn-error.log
+
+# -------------------------------
+# 🔹 Backend (Spring Boot)
+# -------------------------------
+/Backend/target/
+/Backend/.mvn/
+/Backend/.classpath
+/Backend/.project
+/Backend/.settings/
+/Backend/*.iml
+/Backend/mvnw
+/Backend/mvnw.cmd
+/Backend/.env
+/Backend/logs/
+/Backend/*.log
+
+# -------------------------------
+# 🔹 OS or tool junk files
+# -------------------------------
+*.swp
+*.swo
+*.tmp
+*.bak
+*.class
