@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -44,6 +45,7 @@ export class RegisterComponent {
   password: string='';
 
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   onSubmit() {
     const registerData = {
@@ -52,11 +54,14 @@ export class RegisterComponent {
       password: this.password
     };
 
-    if (this.username === "admin" && this.password === "123") {
-      alert('Test admin: registration successful!');
-      this.router.navigate(['/login']);
-    } else {
-      alert('Failed to do register test. Stay here!!');
-    }
+    this.authService.registerTest(registerData).subscribe({
+      next : (res) => {
+        alert('Registration successful! Please login.');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        alert('Registration failed: ' + err.message);
+      }
+    })
   };
 }

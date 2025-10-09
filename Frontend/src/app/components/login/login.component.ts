@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { inject } from '@angular/core';
 
 @Component({
@@ -19,8 +20,6 @@ import { inject } from '@angular/core';
 
       <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
     </form>
-
-    <p>Don't have an account? <a routerLink="/register">Register here</a></p>
   `,
   styles: [`
     form {
@@ -41,6 +40,7 @@ export class LoginComponent {
   password: string = '';
 
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   onSubmit() {
     const credentials = {
@@ -48,11 +48,14 @@ export class LoginComponent {
       password: this.password
     };
 
-    if (this.username === 'admin' && this.password === '123') {
-      alert('Test admin: login successful!');
-      this.router.navigate(['/profile']);
-    } else {
-      alert('Login failed. Please check your username and password.');
-    }
-  };
+    this.authService.loginTest(credentials).subscribe({
+      next : () => {
+        alert('Login successfully!!');
+        this.router.navigate(['/profile']);
+      },
+      error: (err) => {
+        alert('Login failed: ' + err.message);
+      }
+    });
+  }
 }

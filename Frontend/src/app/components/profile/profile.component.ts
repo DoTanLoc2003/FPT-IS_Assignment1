@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,9 +21,11 @@ import { inject } from '@angular/core';
 })
 export class ProfileComponent {
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   logOut() {
-    alert('Logging out, navigating to Home')
+    this.authService.logoutTest();
+    alert('Logged out successfully!');
     this.router.navigate(['/home']);
   }
 
