@@ -161,4 +161,12 @@ export class AuthService {
     this.isAuthenticatedSubject.next(false);
     this.router.navigate(['/login']);
   }
+
+  registerTest(data: {username: string; email: string; password: string}): Observable<any> {
+    if (data.username === "admin" && data.password === "123") {
+      return of({ success: true, message: 'Registration successful (test mode)' });
+    } else {
+      return throwError(() => ({message: 'Registration failed (test mode)'}));
+    }
+  }
 }
