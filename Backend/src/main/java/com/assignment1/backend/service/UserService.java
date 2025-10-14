@@ -9,19 +9,39 @@ import java.util.Map;
 @Service
 public class UserService {
 
-    // @Autowired
-    // private KeyCloakService keyCloakService;
+     @Autowired
+    private KeyCloakService keycloakService;
 
-    public void register(RegisterRequest registerRequest) {
-
+    public void registerUser(String username, String email, String firstName, String lastName,
+            String password) {
         try {
-            RegisterRequest request = new RegisterRequest();
-            request.setUsername(registerRequest.getUsername());
-            request.setEmail(registerRequest.getEmail());
-            request.setPassword(registerRequest.getPassword());
+
+            RegisterRequest registerRequest = new RegisterRequest();
+            registerRequest.setUsername(username);
+            registerRequest.setEmail(email);
+            registerRequest.setFirstName(firstName);
+            registerRequest.setLastName(lastName);
+            registerRequest.setPassword(password);
+
+            keycloakService.createKeycloakUser(registerRequest);
+
         } catch (Exception e) {
-            throw new RuntimeException("Failed to create user " + e.getMessage());
+            throw new RuntimeException("Failed to create user: " + e.getMessage());
         }
+    }
+
+    public boolean validatePassword(String username, String rawPassword) {
+        
+        try {
+            keycloakService.authenticateUser(username, rawPassword);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Map<String, Object> getUserFromToken(String token) {
+        return keycloakService.parseJwtPayload(token);
     }
         
 }
