@@ -10,14 +10,9 @@ export interface LoginResponse {
   message?: string;
   data?: {
     accessToken: string;
-    access_token: string;
-    token: string;
     user?: UserProfile;
   };
-
   accessToken?: string;
-  access_token?: string;
-  token?: string;
 }
 
 export interface UserProfile {
@@ -110,7 +105,7 @@ export class AuthService {
       tap(response => {
         let token: string | undefined;
         if(response.data) {
-          token = response.data.accessToken || response.data.access_token || response.data.token;
+          token = response.data.accessToken;
         }
 
         if(token) {
@@ -139,8 +134,6 @@ export class AuthService {
         accessToken: 'dummy-token-123',
         data: {
           accessToken: 'dummy-token-123',
-          access_token: '',
-          token: '',
           user: {
             username: 'user',
             email: 'user@example.com'
