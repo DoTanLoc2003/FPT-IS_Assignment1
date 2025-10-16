@@ -66,7 +66,7 @@ public class KeyCloakService {
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(tokenUrl, request, String.class);
             JsonNode jsonNode = objectMapper.readTree(response.getBody());
-            String token = jsonNode.get("accessToken").asText();
+            String token = jsonNode.get("access_token").asText();
             log.info("Admin token retrieved successfully");
             return token;
             
