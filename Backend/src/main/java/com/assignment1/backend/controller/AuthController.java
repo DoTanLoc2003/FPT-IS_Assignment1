@@ -31,11 +31,11 @@ public class AuthController {
   @Autowired
   private KeyCloakService keyCloakService;
 
-  @PostMappping("/register")
+  @PostMapping("/register")
    public ResponseEntity<ApiResponse<String>> register(@Valid @RequestBody RegisterRequest request) {
      try {
        userService.registerUser(
-         request.geUsername(),
+         request.getUsername(),
          request.getEmail(),
          request.getPassword(),
          request.getFirstName(),
@@ -61,17 +61,17 @@ public ResponseEntity<ApiResponse<String>> login(@Valid @RequestBody LoginReques
         request.getPassword()
     );
 
-    String accessToken = (String) tokenData.get("accessToken");
+    String accessToken = (String) tokenData.get("access_token");
     Map<String, Object> userInfo = keyCloakService.parseJwtPayload(accessToken);
 
     AuthResponse authResponse = new AuthResponse();
     authResponse.setAccessToken(accessToken);
-    authResponse.setRefreshToken((String) tokenData.get("refreshToken"));
-    authResponse.setExpiresIn((Integer) tokenData.get("expiresIn"));
-    authResponse.setRefreshExpiresIn((Integer) tokenData.get("refreshExpiresIn");
+    authResponse.setRefreshToken((String) tokenData.get("refresh_token"));
+    authResponse.setExpiresIn((Integer) tokenData.get("expires_in"));
+    authResponse.setRefreshExpiresIn((Integer) tokenData.get("refresh_expires_in"));
     authResponse.setTokenType((String) tokenData.get("tokenType"));
 
-    authResponse.UserInfo user = new AuthReponse.UserInfo();
+    authResponse.UserInfo user = new AuthResponse.UserInfo();
     user.setSub((String) userInfo.get("sub"));
     user.setUsername((String) userInfo.get("username"));
     user.setEmail((String) userInfo.get("email"));
@@ -79,14 +79,14 @@ public ResponseEntity<ApiResponse<String>> login(@Valid @RequestBody LoginReques
     user.setLastName((String) userInfo.get("lastName"));
     authResponse.setUser(user);
 
-    return ResponseEntity.ok(ApiResponse.success("Login successful", authReponse));
+    return ResponseEntity.ok(ApiResponse.success("Login successful", authResponse));
     
   } catch (RuntimeRxception e) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                          .body(ApiResponse.error(e.getMessage()));
   } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                         .bodfy(ApiReponse.error("Login failed" + e.getMessage()));
+                         .bodfy(ApiResponse.error("Login failed" + e.getMessage()));
   }
 }
   
@@ -95,3 +95,4 @@ public ResponseEntity<ApiResponse<String>> login(@Valid @RequestBody LoginReques
 
 // Few methods in AuthController, still not done yet!!!
   
+
