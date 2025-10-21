@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public class UserService {
 
-     @Autowired
+    @Autowired
     private KeyCloakService keycloakService;
 
     public void registerUser(String username, String email, String firstName, String lastName,
