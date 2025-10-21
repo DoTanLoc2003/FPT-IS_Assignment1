@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+src/main/java/com/assignment1/backend/config/WebConfig.java
+src/main/java/com/assignment1/backend/controller/AuthTest.java
+src/main/java/com/assignment1/backend/controller/InstanceEntityController.java
+src/main/java/com/assignment1/backend/dto/InstanceEntityDTO.java
+src/main/java/com/assignment1/backend/entity/InstanceEntity.java
+src/main/java/com/assignment1/backend/repository/InstanceEntityRepository.java
+src/main/java/com/assignment1/backend/service/InstanceEntityService.java
+src/main/java/com/assignment1/backend/service/InstanceEntityServiceImpl.java
+src/main/java/com/assignment1/backend/service/ServiceTest.java
