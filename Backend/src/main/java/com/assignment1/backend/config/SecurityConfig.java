@@ -4,9 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import static org.springframework.security.config.Customizer.withDefaults;
+//import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+//import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -17,12 +17,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/health", "actuator/**", "/error").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated())
-                .csrf(csrf -> csrf
-                                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                                .ignoringRequestMatchers("/api/**")
+                        .anyRequest().authenticated()
+                        // .anyRequest().permitAll()
                 )
-                .httpBasic(withDefaults());
+                .csrf(csrf -> csrf
+                                .disable()
+                                // .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                                // .ignoringRequestMatchers("/api/**")
+                                // Keycloak
+                )
+                // .httpBasic(withDefaults());
+                // no pop-up login
+                .httpBasic(httpBasic -> httpBasic.disable());
         return http.build();
     }
 }
