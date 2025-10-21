@@ -34,7 +34,7 @@ export interface ApiResponse<T> {
 })
 export class AuthService {
 
-  private api = 'http://localhost:8088/api/v1/auth';
+  private api = 'http://localhost:8081/api/auth';
   private tokenKey = 'authToken';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
 
@@ -117,7 +117,7 @@ export class AuthService {
         }
       }),
       catchError(this.handleError.bind(this))
-    );    
+    );
   }
 
   logout() {
