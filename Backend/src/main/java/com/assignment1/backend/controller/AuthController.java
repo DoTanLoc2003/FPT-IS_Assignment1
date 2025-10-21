@@ -55,7 +55,8 @@ public class AuthController {
     try {
       Map<String, Object> tokenData = keyCloakService.authenticateUser(
           request.getUsername(),
-          request.getPassword());
+          request.getPassword()
+      );
 
       String accessToken = (String) tokenData.get("access_token");
       Map<String, Object> userInfo = keyCloakService.parseJwtPayload(accessToken);
@@ -169,4 +170,5 @@ public class AuthController {
           .body(ApiResponse.fail(e.getMessage()));
     }
   }
+  
 }

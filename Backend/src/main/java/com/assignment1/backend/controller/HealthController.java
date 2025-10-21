@@ -15,7 +15,7 @@ public class HealthController {
 		Map<String, Object> response = Map.of(
 			"status", "OK",
 			"timestamp", System.currentTimeMillis(),
-			"service:", "Keycloak Test API"
+			"service", "Keycloak Test API"
 		);
 
 		return ResponseEntity.ok(response);
